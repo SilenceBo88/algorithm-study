@@ -15,51 +15,22 @@ public class ValidBracketsSolution {
 
     /**
      * 是否是有效的括号
+     * 建立一个栈，遍历字符串的字符，进行比较
      */
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<Character>();
-        boolean valided = false;
-
-        for (int i = 0; i < s.length(); i++){
-            char ch = s.charAt(i);
-            if (ch == '(' || ch == '{' || ch == '['){
-                stack.push(ch);
-            }
-
-            if ((ch == ')' || ch == '}' || ch == ']') && stack.isEmpty()){
-                valided = false;
-            }
-
-            if (ch == ')' && !stack.isEmpty()){
-                char left = stack.pop();
-                if (left == '('){
-                    valided = true;
-                } else {
-                    valided = false;
-                }
-            }
-            if (ch == '}' && !stack.isEmpty()){
-                char left = stack.pop();
-                if (left == '{'){
-                    valided = true;
-                } else {
-                    valided = false;
-                }
-            }
-            if (ch == ']' && !stack.isEmpty()){
-                char left = stack.pop();
-                if (left == '['){
-                    valided = true;
-                } else {
-                    valided = false;
-                }
+        for (char ch : s.toCharArray()){
+            if (ch == '('){
+                stack.push(')');
+            } else if (ch == '{'){
+                stack.push('}');
+            } else if (ch == '['){
+                stack.push(']');
+            } else if (stack.isEmpty() || ch != stack.pop()){
+                return false;
             }
         }
-
-        if (!stack.isEmpty()){
-            valided = false;
-        }
-        return valided;
+        return stack.isEmpty();
     }
 
     public static void main(String[] args) {
@@ -70,7 +41,7 @@ public class ValidBracketsSolution {
         String s5 = "{[]}";
         String s6 = ")";
         String s7 = "({{{{}}}))";
-        boolean result = new ValidBracketsSolution().isValid(s7);
+        boolean result = new ValidBracketsSolution().isValid(s1);
         System.out.print(result);
     }
 }
