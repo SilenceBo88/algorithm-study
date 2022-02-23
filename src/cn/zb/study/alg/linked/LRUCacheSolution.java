@@ -1,4 +1,4 @@
-package cn.zb.study.alg.stack;
+package cn.zb.study.alg.linked;
 
 import java.util.*;
 
